@@ -8,6 +8,16 @@ from itertools import cycle
 bot = commands.Bot(command_prefix="gfg!")
 
 @bot.event
+async def on_member_join(member):
+    channel = bot.get_channel(638495161466224670)
+    await channel.send(f"Welcome to the server, {member.mention}. We now have {len(list(bot.get_all_members()))} members.")
+
+@bot.event
+async def on_member_remove(member):
+    channel = bot.get_channel(638495161466224670)
+    await channel.send(f"{member.mention} has left the server. We now have {len(list(bot.get_all_members()))} members.")
+
+@bot.event
 async def on_ready():
     print("--------------------")
     print('Logged in as')
@@ -188,9 +198,9 @@ async def ping(ctx):
 @bot.command()
 async def botinfo(ctx):
     embed = discord.Embed(
-        title="Overcast Bot", description="Info", color=0x7289DA)
+        title="GoneForGood Bot", description="Info", color=0x7289DA)
 
-    embed.add_field(name="Bot Owner", value="🎃👻  OvercastGaming  🍬🍭#4086 ")
+    embed.add_field(name="Bot Owner", value="TJVoltron#9005 ")
     
     embed.add_field(name="Bot Developer", value="ImLazyWithAZ#8327")
 
@@ -202,7 +212,7 @@ async def botinfo(ctx):
 
     # give users a link to invite this bot to their server
     embed.add_field(
-        name="Invite", value="[Invite link](https://discordapp.com/oauth2/authorize?client_id=637036513330331648&scope=bot&permissions=8)")
+        name="Invite", value="[Invite link](https://discordapp.com/api/oauth2/authorize?client_id=638499501929398282&permissions=8&scope=bot)")
 
     embed.set_footer(
         text=f"Request by {ctx.author}", icon_url=ctx.author.avatar_url)
@@ -220,16 +230,6 @@ async def hello(ctx, member : discord.Member= None):
     await ctx.send("Hello {}!".format(member.mention))
     
 @bot.command()
-async def ip(ctx, member : discord.Member= None):
-    member = ctx.author if not member else member
-    await ctx.send("canada.syte.space:25824")
-    
-@bot.command()
-async def site(ctx, member : discord.Member= None):
-    member = ctx.author if not member else member
-    await ctx.send("WIP")
-    
-@bot.command()
 async def overrideenable(ctx, member : discord.Member= None):
     member = ctx.author if not member else member
     await ctx.send("Hello {} your override mode is on!!".format(member.mention))
@@ -242,18 +242,18 @@ async def overridedisable(ctx, member : discord.Member= None):
 @bot.command()
 async def help(ctx):
     embed = discord.Embed(
-        title="Overcast bot", description="Commands:", color=0x7289DA)
+        title="GoneForGood bot", description="Commands:", color=0x7289DA)
 
     embed.set_thumbnail(
         url='https://images.emojiterra.com/twitter/v12/512px/1f3d3.png')
-    embed.add_field(name="oc!kick", value="Kicks a member.", inline=False)
-    embed.add_field(name="oc!ban", value="Bans a member.", inline=False)
-    embed.add_field(name="oc!mute", value="Mutes a member.", inline=False)
-    embed.add_field(name="oc!unmute", value="Unmutes a member.", inline=False)
-    embed.add_field(name="oc!unban", value="Unbans a user.", inline=False)
-    embed.add_field(name="oc!clear", value="Clears the amount of messages that you filled in.", inline=False)
-    embed.add_field(name="oc!ping", value="Pings the bot.", inline=False)
-    embed.add_field(name="oc!help", value="Gives this message.", inline=False)
+    embed.add_field(name="gfg!kick", value="Kicks a member.", inline=False)
+    embed.add_field(name="gfg!ban", value="Bans a member.", inline=False)
+    embed.add_field(name="gfg!mute", value="Mutes a member.", inline=False)
+    embed.add_field(name="gfg!unmute", value="Unmutes a member.", inline=False)
+    embed.add_field(name="gfg!unban", value="Unbans a user.", inline=False)
+    embed.add_field(name="gfg!clear", value="Clears the amount of messages that you filled in.", inline=False)
+    embed.add_field(name="gfg!ping", value="Pings the bot.", inline=False)
+    embed.add_field(name="gfg!help", value="Gives this message.", inline=False)
     embed.set_footer(text=f"Request by {ctx.author}", icon_url=ctx.author.avatar_url)
 
     await ctx.send(embed=embed)
@@ -271,6 +271,7 @@ async def on_command_error(ctx, error):
                               description=f"You don't have permission to execute `{ctx.invoked_with}`, this requires the `{roleid}` role to be executed",
                               colour=0xe73c24)
         await ctx.send(embed=embed)
+    elif isinstance(error, commands.BadArgument):
     else:
         embed = discord.Embed(title="Error:",
                               description=f"`{error}`",

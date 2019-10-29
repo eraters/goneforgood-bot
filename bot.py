@@ -271,7 +271,6 @@ async def on_command_error(ctx, error):
                               description=f"You don't have permission to execute `{ctx.invoked_with}`, this requires the `{roleid}` role to be executed",
                               colour=0xe73c24)
         await ctx.send(embed=embed)
-    elif isinstance(error, commands.BadArgument):
     else:
         embed = discord.Embed(title="Error:",
                               description=f"`{error}`",

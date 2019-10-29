@@ -80,6 +80,12 @@ async def presence(ctx, *, status):
     
 @bot.command()
 @commands.has_role(638486996993441795)
+async def awaypresence(ctx, *, status):
+    await bot.change_presence(status=discord.Status.away, activity=discord.Game(status))
+    await ctx.send("Status Changed!")
+    
+@bot.command()
+@commands.has_role(638486996993441795)
 async def offlinemode(ctx):
     await bot.change_presence(status=discord.Status.offline)
     await ctx.send("Status Changed!")

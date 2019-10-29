@@ -54,7 +54,7 @@ async def new(ctx):
       await createchannel.send(embed=embed)
       channel = bot.get_channel(createchannel)
       await ctx.send("Your ticket has been created!")
-      await createchannel.send("<@&618638486996993441795>")
+      await createchannel.send("<Please Wait {member.mention}.>")
     else:
       await ctx.send(":x: You have to be in the support server to do this!")
 
